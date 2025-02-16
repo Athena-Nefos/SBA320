@@ -1,8 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import { useState } from 'react'
-import MovieSearch from './components/MovieSearch.jsx'
-import MovieDetails from './components/MovieDetails.jsx/index.js'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useState } from 'react';
+import MovieSearch from './components/MovieSearch.jsx';
+import MovieDetails from './components/MovieDetails.jsx';
+import SavedMovies from '.components/SavedMovies.jsx';
+import './App.css';
 
 function App() {
   // State to store the list of saved movies for movie night
