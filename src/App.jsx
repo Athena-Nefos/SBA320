@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useState } from 'react';
-import MovieSearch from './components/MovieSearch.jsx';
-import MovieDetails from './components/MovieDetails.jsx';
-import SavedMovies from './components/SavedMovies.jsx';
+import { MovieSearch } from './components/MovieSearch.jsx';
+import { MovieDetails } from './components/MovieDetails.jsx';
+import { SavedMovies } from './components/SavedMovies.jsx';
 import './App.css';
 
 function App() {
@@ -62,3 +62,5 @@ function App() {
     </Router>
   )
 }
+
+export default App;

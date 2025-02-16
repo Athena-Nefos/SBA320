@@ -1,8 +1,12 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 export function MovieSearch({ onSaveMovie, savedMovies }) {
     const [search, setSearch] = useState('')
     const [movies, setMovies] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
+    const apiKey = import.meta.env.VITE_API_KEY
     
     const searchMovies = async (e) => {
         e.preventDefault()
@@ -11,7 +15,7 @@ export function MovieSearch({ onSaveMovie, savedMovies }) {
         
         try {
         const response = await fetch(
-            `http://www.omdbapi.com/?s=${search}&apikey=YOUR_API_KEY`
+            `http://www.omdbapi.com/?s=${search}&apikey=${apiKey}`
         )
         const data = await response.json()
         

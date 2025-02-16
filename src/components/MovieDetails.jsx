@@ -1,14 +1,18 @@
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 export function MovieDetails({ onSaveMovie }) {
     const { id } = useParams()
     const [movie, setMovie] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    
+    const apiKey = import.meta.env.VITE_API_KEY
+
     useEffect(() => {
         const fetchMovieDetails = async () => {
         try {
             const response = await fetch(
-            `http://www.omdbapi.com/?i=${id}&apikey=YOUR_API_KEY`
+            `http://www.omdbapi.com/?i=${id}&apikey=${apiKey}`
             )
             const data = await response.json()
 
