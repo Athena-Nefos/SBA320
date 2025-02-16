@@ -1,11 +1,9 @@
 export function MovieSearch({ onSaveMovie, savedMovies }) {
-    
     const [search, setSearch] = useState('')
     const [movies, setMovies] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
     
-    // Function to search movies using OMDB API
     const searchMovies = async (e) => {
         e.preventDefault()
         setLoading(true)
@@ -20,7 +18,7 @@ export function MovieSearch({ onSaveMovie, savedMovies }) {
         if (data.Response === 'True') {
             setMovies(data.Search)
         } else {
-            setError(data.Error)
+                setError(data.Error)
         }
         } catch (err) {
         setError('Failed to fetch movies')
@@ -30,53 +28,58 @@ export function MovieSearch({ onSaveMovie, savedMovies }) {
     }
     
     return (
-        <div>
-        <form onSubmit={searchMovies} className="mb-6">
+      <div className="fade-in"> {/* Added fade-in animation */}
+        {/* Updated form with new styling */}
+        <form onSubmit={searchMovies} className="search-form">
             <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search for movies..."
-            className="p-2 border rounded mr-2"
+            className="search-input"
             />
             <button 
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            className="btn btn-primary"
             disabled={loading}
             >
             Search
             </button>
         </form>
         
-        {loading && <p>Loading...</p>}
-        {error && <p className="text-red-500">{error}</p>}
+        {/* Added specific classes for loading and error states */}
+        {loading && <p className="loading">Loading...</p>}
+        {error && <p className="error">{error}</p>}
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Updated movie grid with new styling */}
+        <div className="movie-grid">
             {movies.map(movie => (
-            <div key={movie.imdbID} className="border p-4 rounded">
+            <div key={movie.imdbID} className="movie-card">
                 <img 
                 src={movie.Poster !== 'N/A' ? movie.Poster : '/placeholder.png'} 
                 alt={movie.Title}
-                className="w-full h-64 object-cover mb-2"
+                className="movie-poster"
                 />
-                <h3 className="font-bold">{movie.Title}</h3>
-                <p>Year: {movie.Year}</p>
-                <div className="mt-2">
-                <Link 
+                <div className="movie-info">
+                <h3 className="movie-title">{movie.Title}</h3>
+                <p className="movie-year">Year: {movie.Year}</p>
+                <div>
+                    <Link 
                     to={`/movie/${movie.imdbID}`}
-                    className="text-blue-500 hover:text-blue-700 mr-2"
-                >
+                    className="btn btn-primary"
+                    >
                     View Details
-                </Link>
-                <button
+                    </Link>
+                    <button
                     onClick={() => onSaveMovie(movie)}
                     disabled={savedMovies.some(m => m.imdbID === movie.imdbID)}
-                    className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 disabled:bg-gray-400"
-                >
+                    className="btn btn-success"
+                    >
                     {savedMovies.some(m => m.imdbID === movie.imdbID) 
-                    ? 'Saved' 
-                    : 'Save for Movie Night'}
-                </button>
+                        ? 'Saved' 
+                        : 'Save for Movie Night'}
+                    </button>
+                </div>
                 </div>
             </div>
             ))}
